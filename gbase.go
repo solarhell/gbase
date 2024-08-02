@@ -1,32 +1,15 @@
 package gbase
 
 import (
-	crand "crypto/rand"
-	"encoding/binary"
-	mrand "math/rand"
-	"time"
-
 	"github.com/google/uuid"
 )
 
 var (
-	BootID   = uuid.New().String()
-	BootTime = time.Now()
+	BootID = uuid.New().String()
 )
 
 func init() {
-	initMathRand()
 	initZapLogger()
-}
-
-// initMathRand make math/rand using more easily
-func initMathRand() {
-	var buf = make([]byte, 8)
-	if _, err := crand.Read(buf); err != nil {
-		panic(err)
-	}
-	var seed = binary.BigEndian.Uint64(buf)
-	mrand.Seed(int64(seed))
 }
 
 // initZapLogger should used when your process startup,
